@@ -1,16 +1,17 @@
 package com.backend.kosa_midas_7_backend.controller;
 
+import com.backend.kosa_midas_7_backend.dto2.request.CheckOvertimeDto;
 import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdateDepartment;
 import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePassword;
 import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePosition;
+import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/admin")
 @RequiredArgsConstructor
