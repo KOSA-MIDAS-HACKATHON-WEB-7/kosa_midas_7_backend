@@ -63,7 +63,6 @@ public class User {
         this.workWhere = null;
         this.role = role;
     }
-
     public User changePassword(String password) {
         this.password = password;
         return this;
