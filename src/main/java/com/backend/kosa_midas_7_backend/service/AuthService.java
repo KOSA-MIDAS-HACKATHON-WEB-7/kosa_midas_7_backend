@@ -59,13 +59,10 @@ public class AuthService {
                 .userName(userDto.getUserName())
                 .department(userDto.getDepartment())
                 .position(userDto.getPosition())
-<<<<<<< HEAD
                 .role(tmp)
-=======
                 .date(0)
-                .coreTimeStart("8시")
-                .coreTimeEnd("3시")
->>>>>>> aa10220e93163d133f1fcdd10bcd241b50da68d3
+                .coreTimeStart("08시")
+                .coreTimeEnd("15시")
                 .build());
     }
     public void logout(String accountId) {
