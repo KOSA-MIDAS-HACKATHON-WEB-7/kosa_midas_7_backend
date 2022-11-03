@@ -35,6 +35,9 @@ public class User {
 
     private int date;
 
+    @Column(columnDefinition = "TINYINT(1) default false")
+    private Boolean accept;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -67,6 +70,16 @@ public class User {
 
     public User changePosition(String position) {
         this.position = position;
+        return this;
+    }
+
+    public User changeAccountId(String newAccountId) {
+        this.accountId = newAccountId;
+        return this;
+    }
+
+    public User changeAccept(Boolean accept) {
+        this.accept = accept;
         return this;
     }
 }

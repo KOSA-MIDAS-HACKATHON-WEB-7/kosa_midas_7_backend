@@ -8,6 +8,8 @@ import com.backend.kosa_midas_7_backend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,11 +37,13 @@ public class AuthController {
     }
 
     @DeleteMapping("/logout")
-    public void logout(@RequestParam String id) {
-        authService.logout(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void logout() {
+        authService.logout();
     }
 
     @PutMapping("/reissue")
+    @ResponseStatus(HttpStatus.CREATED)
     public TokenResponse reissue(@RequestParam String refreshToken) {
         return authService.reissue(refreshToken);
     }
@@ -52,5 +56,10 @@ public class AuthController {
     @PutMapping("/update-password-mypage")
     public void updatePasswordMyPage(@RequestBody ChangePasswordDto changePasswordDto) {
         authService.updatePassword(changePasswordDto);
+    }
+
+    @GetMapping("/aaa/accept/{accountId}")
+    public void accept(@PathVariable String accountId) {
+        authService.accept(accountId);
     }
 }
