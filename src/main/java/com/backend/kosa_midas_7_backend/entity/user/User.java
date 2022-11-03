@@ -60,6 +60,7 @@ public class User {
         this.accept = false;
         this.coreTimeEnd = coreTimeEnd;
         this.warning = 0;
+        this.workWhere = null;
         this.role = role;
     }
 
