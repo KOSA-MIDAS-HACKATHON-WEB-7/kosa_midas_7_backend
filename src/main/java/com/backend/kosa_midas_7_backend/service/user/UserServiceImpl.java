@@ -6,7 +6,9 @@ import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
 import com.backend.kosa_midas_7_backend.entity.workhome.WorkHome;
 import com.backend.kosa_midas_7_backend.entity.workhome.repository.WorkHomeRepository;
 import com.backend.kosa_midas_7_backend.exception.UserNotFound;
+import com.backend.kosa_midas_7_backend.security.jwt.JwtProvider;
 import com.backend.kosa_midas_7_backend.service.mail.MailService;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,8 @@ public class UserServiceImpl implements UserService {
     private final MailService mailService;
 
     private final WorkHomeRepository workHomeRepository;
+
+    private final JwtProvider jwtProvider;
 
     // GET
     @Override
@@ -48,6 +52,23 @@ public class UserServiceImpl implements UserService {
         } else {
             return new ResponseEntity<>(userList, HttpStatus.OK);
         }
+    }
+
+    @Override
+    public UserDto getUserInfo(String token) {
+        String accountId = jwtProvider.parseClaims(token).getSubject();
+        User user = userRepository.findByAccountId(accountId).orElseThrow(() ->{
+            throw UserNotFound.EXCEPTION;
+        });
+        return UserDto.builder()
+                .userName(user.getUserName())
+                .role(user.getRole().toString())
+                .accountId(user.getAccountId())
+                .department(user.getDepartment())
+                .email(user.getEmail())
+                .password(null)
+                .position(user.getPosition())
+                .build();
     }
 
     // POST
@@ -80,6 +101,18 @@ public class UserServiceImpl implements UserService {
         } catch (Exception exception) {
             log.info("error: {}", exception.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Boolean> signUpCheck(CheckEmailAuthCodeDto emailAuthCodeDto) {
+        String email = emailAuthCodeDto.getEmail();
+        String code = emailAuthCodeDto.getCode();
+
+        if (mailService.checkAuthCode(email, code)) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.CONFLICT);
         }
     }
 

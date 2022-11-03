@@ -7,6 +7,7 @@ import com.backend.kosa_midas_7_backend.service.mail.MailService;
 import com.backend.kosa_midas_7_backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,22 @@ public class UserController {
         return userService.findUserById(id);
     }
 
+    @GetMapping("/user-info")
+    public UserDto getUserInfo(@RequestParam String token) {
+        return userService.getUserInfo(token);
+    }
+
     @GetMapping
     public ResponseEntity<List<User>> findAllUser() {
         return userService.findAllUser();
     }
 
     // POST
+    @PostMapping("/sign-up/email-auth")
+    public ResponseEntity<HttpStatus> signUpEmailAuth(@RequestBody EmailAuthDto emailAuthDto) throws Exception {
+        return mailService.sendAuthMail(emailAuthDto);
+    }
+
     @PostMapping("/find-id/email-auth") // 아이디 찾기 인증코드
     public ResponseEntity<HttpStatus> findId(@RequestBody EmailAuthDto emailAuthDto) throws Exception {
         return mailService.sendAuthMail(emailAuthDto);
@@ -43,6 +54,11 @@ public class UserController {
     @PostMapping("/find-password/email-auth") // 비밀번호 찾기(사실상 변경) 인증코드
     public ResponseEntity<HttpStatus> findPassword(@RequestBody FindPasswordDto findPasswordDto) throws Exception {
         return userService.findPassword(findPasswordDto);
+    }
+
+    @PostMapping("/sign-up/check-auth-code")
+    public ResponseEntity<Boolean> signUpCheck(@RequestBody CheckEmailAuthCodeDto emailAuthCodeDto) {
+        return userService.signUpCheck(emailAuthCodeDto);
     }
 
     @PostMapping("/find-id/check-auth-code") // 아이디 인증코드 확인 -> 맞으면 아이디 보여줌
