@@ -39,7 +39,12 @@ public class User {
     private Role role;
 
     @Builder
+<<<<<<< HEAD
+    public User(String email, String accountId, String userName, String password, String department, String position,
+                Role role, int date, String coreTimeStart, String coreTimeEnd) {
+=======
     public User(String email, String accountId, String userName, String password, String department, String position, int date, String coreTimeStart, String coreTimeEnd) {
+>>>>>>> aa10220e93163d133f1fcdd10bcd241b50da68d3
         this.email = email;
         this.accountId = accountId;
         this.userName = userName;
@@ -49,12 +54,27 @@ public class User {
         this.date = date;
         this.coreTimeStart = coreTimeStart;
         this.coreTimeEnd = coreTimeEnd;
+<<<<<<< HEAD
+        this.role = role;
+=======
         this.role = Role.USER;
+>>>>>>> aa10220e93163d133f1fcdd10bcd241b50da68d3
     }
+
+
 
     public User changePassword(String password) {
         this.password = password;
         return this;
     }
 
+    public User changeDepartment(String department) {
+        this.department = department;
+        return this;
+    }
+
+    public User changePosition(String position) {
+        this.position = position;
+        return this;
+    }
 }

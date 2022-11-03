@@ -3,8 +3,10 @@ package com.backend.kosa_midas_7_backend.service;
 import com.backend.kosa_midas_7_backend.dto2.request.ChangePasswordDto;
 import com.backend.kosa_midas_7_backend.dto2.request.LoginDto;
 import com.backend.kosa_midas_7_backend.dto2.request.UserDto;
+import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePassword;
 import com.backend.kosa_midas_7_backend.dto2.response.TokenResponse;
 import com.backend.kosa_midas_7_backend.entity.refresh.repository.RefreshRepository;
+import com.backend.kosa_midas_7_backend.entity.user.Role;
 import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
 import com.backend.kosa_midas_7_backend.security.jwt.JwtProvider;
@@ -44,6 +46,12 @@ public class AuthService {
         if(userRepository.findByAccountId(userDto.getAccountId()).isPresent()) {
             throw new RuntimeException("id already exist");
         }
+        Role tmp = null;
+        if(userDto.getRole().equals("USER")) {
+            tmp = Role.USER;
+        } else if (userDto.getRole().equals("ADMIN")) {
+            tmp = Role.ADMIN;
+        }
         userRepository.save(User.builder()
                 .accountId(userDto.getAccountId())
                 .password(passwordEncoder.encode(userDto.getPassword()))
@@ -51,9 +59,13 @@ public class AuthService {
                 .userName(userDto.getUserName())
                 .department(userDto.getDepartment())
                 .position(userDto.getPosition())
+<<<<<<< HEAD
+                .role(tmp)
+=======
                 .date(0)
                 .coreTimeStart("8시")
                 .coreTimeEnd("3시")
+>>>>>>> aa10220e93163d133f1fcdd10bcd241b50da68d3
                 .build());
     }
     public void logout(String accountId) {
