@@ -1,6 +1,7 @@
-package com.backend.kosa_midas_7_backend.entity;
+package com.backend.kosa_midas_7_backend.entity.refresh;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -11,8 +12,14 @@ import javax.persistence.Id;
 @Entity
 public class Refresh {
     @Id
-    private Long useri-d;
+    private String userId;
 
     @Column(nullable = false)
     private String token;
+
+    @Builder
+    public Refresh(String userId, String token) {
+        this.userId = userId;
+        this.token = token;
+    }
 }

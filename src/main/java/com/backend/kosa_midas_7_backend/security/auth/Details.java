@@ -1,6 +1,6 @@
 package com.backend.kosa_midas_7_backend.security.auth;
 
-import com.backend.kosa_midas_7_backend.entity.User;
+import com.backend.kosa_midas_7_backend.entity.user.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

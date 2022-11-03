@@ -1,5 +1,7 @@
-package com.backend.kosa_midas_7_backend.entity;
+package com.backend.kosa_midas_7_backend.entity.officehour;
 
+import com.backend.kosa_midas_7_backend.entity.user.User;
+import com.backend.kosa_midas_7_backend.entity.workhome.WorkHome;
 import com.sun.istack.NotNull;
 import lombok.*;
 

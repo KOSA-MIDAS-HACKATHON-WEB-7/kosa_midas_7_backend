@@ -1,5 +1,6 @@
-package com.backend.kosa_midas_7_backend.entity;
+package com.backend.kosa_midas_7_backend.entity.workhome;
 
+import com.backend.kosa_midas_7_backend.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
