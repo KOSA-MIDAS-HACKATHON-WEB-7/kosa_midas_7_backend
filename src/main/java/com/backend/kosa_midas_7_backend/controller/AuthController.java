@@ -35,8 +35,8 @@ public class AuthController {
     }
 
     @DeleteMapping("/logout")
-    public void logout(@RequestParam String id) {
-        authService.logout(id);
+    public void logout() {
+        authService.logout();
     }
 
     @PutMapping("/reissue")

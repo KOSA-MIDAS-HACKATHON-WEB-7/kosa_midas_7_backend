@@ -9,9 +9,11 @@ import com.backend.kosa_midas_7_backend.entity.refresh.repository.RefreshReposit
 import com.backend.kosa_midas_7_backend.entity.user.Role;
 import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
+import com.backend.kosa_midas_7_backend.security.auth.Details;
 import com.backend.kosa_midas_7_backend.security.jwt.JwtProvider;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +67,9 @@ public class AuthService {
                 .coreTimeEnd("15시")
                 .build());
     }
-    public void logout(String accountId) {
+    public void logout() {
+        Details tmp =  (Details) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String accountId = tmp.getUser().getAccountId();
         refreshRepository.delete(refreshRepository.findById(accountId).orElseThrow(() -> {
                     throw new RuntimeException("user does not exist");
                 }
