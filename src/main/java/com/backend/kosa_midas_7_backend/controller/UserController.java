@@ -1,16 +1,18 @@
 package com.backend.kosa_midas_7_backend.controller;
 
 import com.backend.kosa_midas_7_backend.entity.dto.user.*;
+import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.service.mail.MailService;
 import com.backend.kosa_midas_7_backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
@@ -21,6 +23,15 @@ public class UserController {
     private final MailService mailService;
 
     // GET
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable Long id) {
+        return userService.findUserById(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> findAllUser() {
+        return userService.findAllUser();
+    }
 
     // POST
     @PostMapping("/find-id/email-auth") // 아이디 찾기 인증코드
@@ -44,6 +55,11 @@ public class UserController {
     }
 
     // PUT
+    @PutMapping("/change-core-time")
+    public ResponseEntity<User> changeCoreTime(@RequestBody ChangeCoreTimeDto changeCoreTimeDto) {
+        log.info("g: {}", changeCoreTimeDto.toString());
+        return userService.changeCoreTime(changeCoreTimeDto);
+    }
 
     // DELETE
 

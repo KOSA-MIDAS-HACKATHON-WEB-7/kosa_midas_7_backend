@@ -1,9 +1,6 @@
 package com.backend.kosa_midas_7_backend.service.user;
 
-import com.backend.kosa_midas_7_backend.entity.dto.user.CheckEmailAuthCodeDto;
-import com.backend.kosa_midas_7_backend.entity.dto.user.EmailAuthDto;
-import com.backend.kosa_midas_7_backend.entity.dto.user.FindPasswordCheck;
-import com.backend.kosa_midas_7_backend.entity.dto.user.FindPasswordDto;
+import com.backend.kosa_midas_7_backend.entity.dto.user.*;
 import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
 import com.backend.kosa_midas_7_backend.service.mail.MailService;
@@ -13,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -25,9 +23,29 @@ public class UserServiceImpl implements UserService {
     private final MailService mailService;
 
     // GET
+    @Override
+    public ResponseEntity<User> findUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<User>> findAllUser() {
+        List<User> userList = userRepository.findAll();
+
+        if (userList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(userList, HttpStatus.OK);
+        }
+    }
 
     // POST
-
     @Override
     public ResponseEntity<HttpStatus> findPassword(FindPasswordDto findPasswordDto) throws Exception {
         String accountId = findPasswordDto.getAccountId();
@@ -78,6 +96,24 @@ public class UserServiceImpl implements UserService {
     }
 
     // PUT
+    @Override
+    public ResponseEntity<User> changeCoreTime(ChangeCoreTimeDto changeCoreTimeDto) {
+        Long userId = changeCoreTimeDto.getUserId();
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent()) {
+            User userEntity = user.get();
+            userEntity.setCoreTimeStart(changeCoreTimeDto.getCoreTimeStart());
+            userEntity.setCoreTimeEnd(changeCoreTimeDto.getCoreTimeEnd());
+
+            userRepository.save(userEntity);
+
+            return new ResponseEntity<>(userEntity, HttpStatus.OK);
+        } else {
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     // DELETE
 

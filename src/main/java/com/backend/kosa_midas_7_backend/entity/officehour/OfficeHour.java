@@ -36,17 +36,14 @@ public class OfficeHour {
     @OneToOne
     private WorkHome workHome;
 
+    private int date;
+
     public OfficeHour startWork(OfficeHour officeHour, User user) {
         officeHour.setUser(user);
         officeHour.setCreatedAt(LocalDateTime.now());
         officeHour.setStartOfficeHours(LocalDateTime.now());
+        officeHour.setDate(user.getDate());
         return officeHour;
-    }
-
-    public void startWorkByHome(OfficeHour officeHour, User user) {
-        officeHour.setUser(user);
-        officeHour.setCreatedAt(LocalDateTime.now());
-        officeHour.setStartOfficeHours(LocalDateTime.now());
     }
 
 }
