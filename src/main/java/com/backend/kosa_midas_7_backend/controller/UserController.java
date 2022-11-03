@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/user-info")
-    public UserDto getUserInfo(@RequestParam String token) {
+    public UserDto getUserInfo(@RequestHeader("Authorization") String token) {
         return userService.getUserInfo(token);
     }
 
