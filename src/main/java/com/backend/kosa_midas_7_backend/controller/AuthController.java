@@ -1,5 +1,6 @@
 package com.backend.kosa_midas_7_backend.controller;
 
+import com.backend.kosa_midas_7_backend.dto2.request.ChangePasswordDto;
 import com.backend.kosa_midas_7_backend.dto2.request.LoginDto;
 import com.backend.kosa_midas_7_backend.dto2.request.UserDto;
 import com.backend.kosa_midas_7_backend.dto2.response.TokenResponse;
@@ -43,8 +44,13 @@ public class AuthController {
         return authService.reissue(accessToken);
     }
 
-    @PostMapping("/update-password")
+    @PutMapping("/update-password")
     public void updatePassword(@RequestBody LoginDto loginDto) {
         authService.updatePassword(loginDto);
+    }
+
+    @PutMapping("/update-password-mypage")
+    public void updatePasswordMyPage(@RequestBody ChangePasswordDto changePasswordDto) {
+        authService.updatePassword(changePasswordDto);
     }
 }
