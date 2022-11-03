@@ -41,6 +41,12 @@ public class UserController {
     }
 
     // POST
+    @PostMapping("/check-work-home")
+    public ResponseEntity<WorkHome> findWorkHome(@RequestBody FindWorkHomeDto findWorkHomeDto) {
+        return userService.findWorkHome(findWorkHomeDto);
+    }
+
+
     @PostMapping("/sign-up/email-auth")
     public ResponseEntity<HttpStatus> signUpEmailAuth(@RequestBody EmailAuthDto emailAuthDto) throws Exception {
         return mailService.sendAuthMail(emailAuthDto);

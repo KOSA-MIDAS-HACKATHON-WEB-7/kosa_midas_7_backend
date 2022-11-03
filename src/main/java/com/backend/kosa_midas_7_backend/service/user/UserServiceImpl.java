@@ -72,6 +72,25 @@ public class UserServiceImpl implements UserService {
     }
 
     // POST
+
+
+    @Override
+    public ResponseEntity<WorkHome> findWorkHome(FindWorkHomeDto findWorkHomeDto) {
+        Optional<User> user = userRepository.findById(findWorkHomeDto.getUserId());
+
+        if (user.isPresent()) {
+            Optional<WorkHome> workHome = workHomeRepository.findByUser(user.get());
+
+            if (workHome.isPresent()) {
+                return new ResponseEntity<>(workHome.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @Override
     public ResponseEntity<HttpStatus> findPassword(FindPasswordDto findPasswordDto) throws Exception {
         String accountId = findPasswordDto.getAccountId();

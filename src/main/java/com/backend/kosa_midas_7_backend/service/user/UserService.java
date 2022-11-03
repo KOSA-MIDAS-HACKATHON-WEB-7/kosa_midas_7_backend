@@ -21,6 +21,8 @@ public interface UserService {
     UserDto getUserInfo(String token);
 
     // POST
+    ResponseEntity<WorkHome> findWorkHome(FindWorkHomeDto findWorkHomeDto);
+
     ResponseEntity<HttpStatus> findPassword(FindPasswordDto findPasswordDto) throws Exception;
 
     ResponseEntity<Boolean> signUpCheck(CheckEmailAuthCodeDto emailAuthCodeDto);
