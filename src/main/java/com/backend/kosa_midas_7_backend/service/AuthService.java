@@ -1,5 +1,6 @@
 package com.backend.kosa_midas_7_backend.service;
 
+import com.backend.kosa_midas_7_backend.dto2.request.ChangePasswordDto;
 import com.backend.kosa_midas_7_backend.dto2.request.LoginDto;
 import com.backend.kosa_midas_7_backend.dto2.request.UserDto;
 import com.backend.kosa_midas_7_backend.dto2.response.TokenResponse;
@@ -9,7 +10,6 @@ import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
 import com.backend.kosa_midas_7_backend.security.jwt.JwtProvider;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +76,19 @@ public class AuthService {
         User user = userRepository.findByAccountId(loginDto.getAccountId()).orElseThrow(()-> {
             throw new RuntimeException("user does not exist");
         });
-        user.changePassword(passwordEncoder.encode(loginDto.getPassword()));
+        userRepository.save(user.changePassword(passwordEncoder.encode(loginDto.getPassword())));
+    }
+
+    public void updatePassword(ChangePasswordDto changePasswordDto) {
+        User user = userRepository.findByAccountId((changePasswordDto.getAccountId())).orElseThrow(() -> {
+            throw new RuntimeException("user does not exist");
+        });
+        if(!passwordEncoder.matches(changePasswordDto.getBeforePassword(), user.getPassword())) {
+            throw new RuntimeException("Password is incorrect");
+        }
+        if(!changePasswordDto.getAfterPassword().equals(changePasswordDto.getAfterPasswordCheck())) {
+            throw new RuntimeException("check your \"check password\"");
+        }
+        userRepository.save(user.changePassword(passwordEncoder.encode(changePasswordDto.getAfterPassword())));
     }
 }
