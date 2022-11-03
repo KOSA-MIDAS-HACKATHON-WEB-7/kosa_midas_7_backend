@@ -3,6 +3,8 @@ package com.backend.kosa_midas_7_backend.service.user;
 import com.backend.kosa_midas_7_backend.entity.dto.user.*;
 import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
+import com.backend.kosa_midas_7_backend.entity.workhome.WorkHome;
+import com.backend.kosa_midas_7_backend.entity.workhome.repository.WorkHomeRepository;
 import com.backend.kosa_midas_7_backend.service.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final MailService mailService;
+
+    private final WorkHomeRepository workHomeRepository;
 
     // GET
     @Override
@@ -95,6 +99,36 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public ResponseEntity<WorkHome> workHomeApplication(WorkHomeApplicationDto workHomeApplicationDto) {
+        try {
+            Long userId = workHomeApplicationDto.getUserId();
+            Optional<User> user = userRepository.findById(userId);
+
+            if (user.isPresent()) {
+                User userEntity = user.get();
+                Optional<WorkHome> workHomeCheck = workHomeRepository.findByUser(userEntity);
+                WorkHome workHome = new WorkHome();
+
+                if (workHomeCheck.isPresent()) {
+                    log.info("change: {}", workHomeCheck.get().getId());
+                    workHomeApplicationDto.setId(workHomeCheck.get().getId());
+                    workHome.createWorkHome(userEntity, workHomeApplicationDto);
+                } else {
+                    workHome.createWorkHome(userEntity, workHomeApplicationDto);
+                }
+                workHomeRepository.save(workHome);
+                return new ResponseEntity<>(workHome, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception exception) {
+            log.info("error: {}",exception.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
     // PUT
     @Override
     public ResponseEntity<User> changeCoreTime(ChangeCoreTimeDto changeCoreTimeDto) {
@@ -113,7 +147,6 @@ public class UserServiceImpl implements UserService {
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 
     // DELETE
 

@@ -1,5 +1,6 @@
 package com.backend.kosa_midas_7_backend.entity.workhome;
 
+import com.backend.kosa_midas_7_backend.entity.dto.user.WorkHomeApplicationDto;
 import com.backend.kosa_midas_7_backend.entity.user.User;
 import lombok.*;
 
@@ -31,5 +32,17 @@ public class WorkHome {
     private String reason;
 
     private String response;
+
+    public void createWorkHome(User user, WorkHomeApplicationDto workHomeApplicationDto) {
+        if (workHomeApplicationDto.getId() != null) {
+            this.id = workHomeApplicationDto.getId();
+        }
+        this.user = user;
+        this.startDate = workHomeApplicationDto.getStartDate();
+        this.endDate = workHomeApplicationDto.getEndDate();
+        this.recruitment = false;
+        this.reason = workHomeApplicationDto.getReason();
+        this.response = null;
+    }
 
 }

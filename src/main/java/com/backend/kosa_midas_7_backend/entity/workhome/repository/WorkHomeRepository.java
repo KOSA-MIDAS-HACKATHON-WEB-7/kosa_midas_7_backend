@@ -11,6 +11,8 @@ import java.util.Optional;
 @Repository
 public interface WorkHomeRepository extends JpaRepository<WorkHome, Long> {
 
-    Optional<WorkHome> findByUserAndEndDateAfterOrEndDateAndRecruitment(User user, LocalDate nowtime, LocalDate time, Boolean recruitment);
+    Optional<WorkHome> findByUser(User user);
+
+    Optional<WorkHome> findByUserAndRecruitmentAndEndDateAfterOrEndDate(User user, Boolean recruitment, LocalDate time1, LocalDate time2);
 
 }

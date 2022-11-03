@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Service
 public interface OfficeHourService {
@@ -14,7 +15,7 @@ public interface OfficeHourService {
     // GET
     ResponseEntity<LocalDateTime> checkWorkHourBeforeEnd(CheckDto checkDto);
 
-    ResponseEntity<String> checkWorkHour(CheckDto checkDto);
+    ResponseEntity<Map<String, String>> checkWorkHour(CheckDto checkDto);
 
     // POST
     ResponseEntity<HttpStatus> startWork(WorkDto workDto);
