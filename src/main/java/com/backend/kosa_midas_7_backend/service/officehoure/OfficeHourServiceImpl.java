@@ -1,7 +1,7 @@
 package com.backend.kosa_midas_7_backend.service.officehoure;
 
-import com.backend.kosa_midas_7_backend.entity.dto.officehour.CheckDto;
-import com.backend.kosa_midas_7_backend.entity.dto.officehour.WorkDto;
+import com.backend.kosa_midas_7_backend.dto.request.CheckDto;
+import com.backend.kosa_midas_7_backend.dto.request.WorkDto;
 import com.backend.kosa_midas_7_backend.entity.officehour.OfficeHour;
 import com.backend.kosa_midas_7_backend.entity.officehour.repository.OfficeHourRepository;
 import com.backend.kosa_midas_7_backend.entity.user.User;
@@ -10,13 +10,13 @@ import com.backend.kosa_midas_7_backend.entity.workhome.repository.WorkHomeRepos
 import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
@@ -118,6 +118,19 @@ public class OfficeHourServiceImpl implements OfficeHourService {
 
             if (user.isPresent()) {
                 User userEntity = user.get();
+
+                String coreStart = userEntity.getCoreTimeStart();
+                String coreEnd = userEntity.getCoreTimeEnd();
+
+                LocalTime coreStartLT = LocalTime.parse(coreStart);
+                LocalTime coreEndLT = LocalTime.parse(coreEnd);
+                LocalTime nowTime = LocalTime.now();
+
+                log.info("coreStartLT: {}, coreEndLT: {}, now: {}", coreStartLT, coreEndLT, LocalTime.now());
+
+                if (nowTime.compareTo(coreStartLT) == -1 || coreEndLT.compareTo(nowTime) == -1) {
+                    userEntity.setWarning(userEntity.getWarning() + 1);
+                }
 
                 Optional<WorkHome> workHome = workHomeRepository.findByUserAndRecruitmentAndEndDateAfterOrEndDate(userEntity, true, LocalDate.now(), LocalDate.now());
 

@@ -1,6 +1,5 @@
-package com.backend.kosa_midas_7_backend.dto2.request;
+package com.backend.kosa_midas_7_backend.dto.request;
 
-import com.backend.kosa_midas_7_backend.entity.user.Role;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;

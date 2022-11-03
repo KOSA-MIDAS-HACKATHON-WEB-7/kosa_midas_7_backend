@@ -35,6 +35,9 @@ public class User {
 
     private int date;
 
+    @Column(columnDefinition = "INTEGER defaut 0")
+    private int warning;
+
     @Column(columnDefinition = "TINYINT(1) default false")
     private Boolean accept;
 

@@ -1,4 +1,4 @@
-package com.backend.kosa_midas_7_backend.dto2.response;
+package com.backend.kosa_midas_7_backend.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

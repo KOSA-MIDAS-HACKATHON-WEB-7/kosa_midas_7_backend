@@ -1,6 +1,6 @@
 package com.backend.kosa_midas_7_backend.controller;
 
-import com.backend.kosa_midas_7_backend.entity.dto.user.*;
+import com.backend.kosa_midas_7_backend.dto.request.*;
 import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.entity.workhome.WorkHome;
 import com.backend.kosa_midas_7_backend.service.mail.MailService;

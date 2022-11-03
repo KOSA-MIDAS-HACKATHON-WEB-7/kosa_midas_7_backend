@@ -1,7 +1,7 @@
-package com.backend.kosa_midas_7_backend.Controller;
+package com.backend.kosa_midas_7_backend.controller;
 
-import com.backend.kosa_midas_7_backend.entity.dto.officehour.CheckDto;
-import com.backend.kosa_midas_7_backend.entity.dto.officehour.WorkDto;
+import com.backend.kosa_midas_7_backend.dto.request.CheckDto;
+import com.backend.kosa_midas_7_backend.dto.request.WorkDto;
 import com.backend.kosa_midas_7_backend.service.officehoure.OfficeHourService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
