@@ -47,6 +47,7 @@ public class AdminService {
         userRepository.save(user.changeAccountId(updateAccountId.getNewAccountId()));
     }
 
+
     public void updateInfo(UpdateInfoAdmin updateInfoAdmin) {
         User user = validateAdmin(updateInfoAdmin.getAccountId());
         if (updateInfoAdmin.getPassword() != null)
@@ -58,6 +59,11 @@ public class AdminService {
         if(updateInfoAdmin.getNewAccountId() != null)
             user.changeAccountId(updateInfoAdmin.getNewAccountId());
         userRepository.save(user);
+    }
+
+    public void acceptSignUp(String accountId) {
+        User user = validateAdmin(accountId);
+        userRepository.save(user.changeAccept(true));
     }
 
     public void acceptWorkHome(Long id) {

@@ -63,4 +63,9 @@ public class AdminController {
     public void refuseWorkHome(@PathVariable Long id, @RequestBody WorkHomeResponse response) {
         service.refuseWorkHome(id, response);
     }
+
+    @PutMapping("/sign-up/accept/{accountId}")
+    public void acceptSignUp(@PathVariable String accountId) {
+        service.acceptSignUp(accountId);
+    }
 }
