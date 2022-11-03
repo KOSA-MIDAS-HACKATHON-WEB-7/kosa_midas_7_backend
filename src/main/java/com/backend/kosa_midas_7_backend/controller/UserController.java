@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -21,6 +23,15 @@ public class UserController {
     private final MailService mailService;
 
     // GET
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable Long id) {
+        return userService.findUserById(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> findAllUser() {
+        return userService.findAllUser();
+    }
 
     // POST
     @PostMapping("/find-id/email-auth") // 아이디 찾기 인증코드
