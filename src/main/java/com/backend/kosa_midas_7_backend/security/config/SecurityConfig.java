@@ -37,8 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
 
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/user/sign-up").permitAll()
-                .antMatchers(HttpMethod.POST, "/user/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/sign-up").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .anyRequest().authenticated()
 
                 .and().addFilterBefore(new JwtFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
