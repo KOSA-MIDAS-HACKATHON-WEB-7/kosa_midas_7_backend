@@ -1,8 +1,8 @@
 package com.backend.kosa_midas_7_backend.service.mail;
 
-import com.backend.kosa_midas_7_backend.entity.EmailAuthCode;
+import com.backend.kosa_midas_7_backend.entity.emailauthcode.EmailAuthCode;
 import com.backend.kosa_midas_7_backend.entity.dto.EmailAuthDto;
-import com.backend.kosa_midas_7_backend.repository.EmailAuthCodeRepository;
+import com.backend.kosa_midas_7_backend.entity.emailauthcode.repository.EmailAuthCodeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
