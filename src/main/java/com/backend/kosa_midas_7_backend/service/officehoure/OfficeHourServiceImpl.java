@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -60,7 +62,7 @@ public class OfficeHourServiceImpl implements OfficeHourService {
     }
 
     @Override
-    public ResponseEntity<String> checkWorkHour(CheckDto checkDto) {
+    public ResponseEntity<Map<String, String>> checkWorkHour(CheckDto checkDto) {
         try {
             Long userId = checkDto.getUserId();
             Optional<User> user = userRepository.findById(userId);
@@ -84,14 +86,15 @@ public class OfficeHourServiceImpl implements OfficeHourService {
                     int minutes = absTime % 3600 / 60;
 
                     String time;
+                    Map<String, String> mapTime = new HashMap<>();
 
                     if (totalWorkHour >= 0) {
                         time = String.format("%02d:%02d", hours, minutes);
                     } else {
                         time = String.format("-%02d:%02d", hours, minutes);
                     }
-                    log.info("time: {}", time);
-                    return new ResponseEntity<>(time, HttpStatus.OK);
+                    mapTime.put("time", time);
+                    return new ResponseEntity<>(mapTime, HttpStatus.OK);
                 } else {
                     log.info("1");
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -116,10 +119,19 @@ public class OfficeHourServiceImpl implements OfficeHourService {
             if (user.isPresent()) {
                 User userEntity = user.get();
 
+                Optional<WorkHome> workHome = workHomeRepository.findByUserAndRecruitmentAndEndDateAfterOrEndDate(userEntity, true, LocalDate.now(), LocalDate.now());
+
                 OfficeHour officeHour = new OfficeHour();
                 officeHour = officeHour.startWork(officeHour, userEntity);
 
-                officeHour.setOfficeHoursType("회사");
+                if (workHome.isPresent()) {
+                    WorkHome workHomeEntity = workHome.get();
+                    officeHour.setOfficeHoursType("재택근무");
+                    officeHour.setWorkHome(workHomeEntity);
+                } else {
+                    officeHour.setOfficeHoursType("회사");
+                }
+
                 officeHourRepository.save(officeHour);
 
                 return new ResponseEntity<>(HttpStatus.OK);
