@@ -80,7 +80,7 @@ public class MailServiceImpl implements MailService {
                 "            </tr style>\n" +
                 "            <tr class=\"codeTr\" style=\"display: block; padding: 0 calc((600px - 452px) / 2); padding-top: 40px !important; padding-bottom: 20px !important;\">\n" +
                 "               <td class=\"code\" style=\"width: 450px; height: 90px; font-size: 40px; font-weight: 900; border: 1px solid rgba(0, 0, 0, 0.05); text-align: center; vertical-align: middle; border-left: #ABA6EA 5px solid;\">\n" +
-                "                  OOOOOOOO\n" +
+                "                  " + code + "\n" +
                 "               </td>\n" +
                 "            </tr>\n" +
                 "            <tr class=\"exprationTr\" style=\"display: block; padding: 0 calc((600px - 452px) / 2); text-align: center; padding: 0 calc((600px - 432px) / 2) !important; padding-bottom: 40px !important;\">\n" +
