@@ -51,6 +51,9 @@ public class AuthService {
                 .userName(userDto.getUserName())
                 .department(userDto.getDepartment())
                 .position(userDto.getPosition())
+                .date(0)
+                .coreTimeStart("8시")
+                .coreTimeEnd("3시")
                 .build());
     }
     public void logout(String accountId) {
