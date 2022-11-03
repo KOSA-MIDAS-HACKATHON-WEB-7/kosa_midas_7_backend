@@ -7,10 +7,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Builder
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -29,7 +27,18 @@ public class User {
 
     private String position;
 
-    @OneToOne
+    @Builder
+    public User(String email, String accountId, String userName, String password, String department, String position) {
+        this.email = email;
+        this.accountId = accountId;
+        this.userName = userName;
+        this.password = password;
+        this.department = department;
+        this.position = position;
+        this.role = Role.USER;
+    }
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 
 }
