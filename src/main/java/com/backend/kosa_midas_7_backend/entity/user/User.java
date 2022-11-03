@@ -69,4 +69,9 @@ public class User {
         this.position = position;
         return this;
     }
+
+    public User changeAccountId(String newAccountId) {
+        this.accountId = newAccountId;
+        return this;
+    }
 }

@@ -15,4 +15,6 @@ public class UpdateInfoAdmin {
     private String position;
 
     private String department;
+
+    private String newAccountId;
 }

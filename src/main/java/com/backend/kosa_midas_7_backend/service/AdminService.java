@@ -1,6 +1,7 @@
 package com.backend.kosa_midas_7_backend.service;
 
 import com.backend.kosa_midas_7_backend.dto2.request.UpdateInfoAdmin;
+import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdateAccountId;
 import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdateDepartment;
 import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePassword;
 import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePosition;
@@ -36,6 +37,11 @@ public class AdminService {
         userRepository.save(user.changePosition(updatePosition.getPosition()));
     }
 
+    public void updateAccountId(UpdateAccountId updateAccountId) {
+        User user = validateAdmin(updateAccountId.getAccountId());
+        userRepository.save(user);
+    }
+
     public void updateInfo(UpdateInfoAdmin updateInfoAdmin) {
         User user = validateAdmin(updateInfoAdmin.getAccountId());
         if (updateInfoAdmin.getPassword() != null)
@@ -44,6 +50,8 @@ public class AdminService {
             user.changeDepartment(updateInfoAdmin.getDepartment());
         if(updateInfoAdmin.getPosition() != null)
             user.changeDepartment(updateInfoAdmin.getDepartment());
+        if(updateInfoAdmin.getNewAccountId() != null)
+            user.changeAccountId(updateInfoAdmin.getNewAccountId());
         userRepository.save(user);
     }
 
