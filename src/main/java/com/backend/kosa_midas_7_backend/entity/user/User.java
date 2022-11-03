@@ -27,6 +27,8 @@ public class User {
 
     private String position;
 
+    private int date;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
