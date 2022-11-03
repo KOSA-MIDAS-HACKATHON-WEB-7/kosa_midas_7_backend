@@ -35,11 +35,13 @@ public class AuthController {
     }
 
     @DeleteMapping("/logout")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void logout() {
         authService.logout();
     }
 
     @PutMapping("/reissue")
+    @ResponseStatus(HttpStatus.CREATED)
     public TokenResponse reissue(@RequestParam String refreshToken) {
         return authService.reissue(refreshToken);
     }
