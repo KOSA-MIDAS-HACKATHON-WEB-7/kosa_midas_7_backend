@@ -51,7 +51,7 @@ public class JwtProvider {
             Jwts.parserBuilder().setSigningKey(encodingKey()).build().parseClaimsJws(accessToken);
             return true;
         } catch (Exception e) {
-            throw new RuntimeException("aasss"); //////////////////////
+            throw new RuntimeException("token it does not validate");
         }
     }
 
@@ -59,7 +59,7 @@ public class JwtProvider {
         try {
             return Jwts.parserBuilder().setSigningKey(encodingKey()).build().parseClaimsJws(accessToken).getBody();
         } catch (Exception e) {
-            throw new RuntimeException("aaa"); //////////////////////
+            throw new RuntimeException("Claims Parsing exception");
         }
     }
 

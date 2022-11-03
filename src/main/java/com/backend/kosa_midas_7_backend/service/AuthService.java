@@ -3,6 +3,7 @@ package com.backend.kosa_midas_7_backend.service;
 import com.backend.kosa_midas_7_backend.dto2.request.ChangePasswordDto;
 import com.backend.kosa_midas_7_backend.dto2.request.LoginDto;
 import com.backend.kosa_midas_7_backend.dto2.request.UserDto;
+import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePassword;
 import com.backend.kosa_midas_7_backend.dto2.response.TokenResponse;
 import com.backend.kosa_midas_7_backend.entity.refresh.repository.RefreshRepository;
 import com.backend.kosa_midas_7_backend.entity.user.User;
