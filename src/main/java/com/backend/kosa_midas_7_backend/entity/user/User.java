@@ -1,4 +1,4 @@
-package com.backend.kosa_midas_7_backend.entity;
+package com.backend.kosa_midas_7_backend.entity.user;
 
 import lombok.*;
 
@@ -27,6 +27,9 @@ public class User {
 
     private String position;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Builder
     public User(String email, String accountId, String userName, String password, String department, String position) {
         this.email = email;
@@ -38,7 +41,5 @@ public class User {
         this.role = Role.USER;
     }
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
 }
