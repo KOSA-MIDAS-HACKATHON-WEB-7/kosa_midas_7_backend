@@ -71,4 +71,11 @@ public class AuthService {
                 .refreshToken(jwtProvider.generateRefreshToken(user.getAccountId()))
                 .build();
     }
+
+    public void updatePassword(LoginDto loginDto) {
+        User user = userRepository.findByAccountId(loginDto.getAccountId()).orElseThrow(()-> {
+            throw new RuntimeException("user does not exist");
+        });
+        user.changePassword(passwordEncoder.encode(loginDto.getPassword()));
+    }
 }

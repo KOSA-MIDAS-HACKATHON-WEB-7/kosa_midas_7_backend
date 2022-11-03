@@ -42,4 +42,9 @@ public class AuthController {
     public TokenResponse reissue(@RequestParam String accessToken) {
         return authService.reissue(accessToken);
     }
+
+    @PostMapping("/update-password")
+    public void updatePassword(@RequestBody LoginDto loginDto) {
+        authService.updatePassword(loginDto);
+    }
 }

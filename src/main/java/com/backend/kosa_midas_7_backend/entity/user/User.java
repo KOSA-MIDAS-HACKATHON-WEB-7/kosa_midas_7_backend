@@ -41,5 +41,8 @@ public class User {
         this.role = Role.USER;
     }
 
+    public void changePassword(String password) {
+        this.password = password;
+    }
 
 }
