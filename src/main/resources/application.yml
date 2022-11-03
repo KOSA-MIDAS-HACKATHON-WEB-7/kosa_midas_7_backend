@@ -8,3 +8,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+jwt:
+  secret_key: ${SECRET_KEY}
+  exp:
+    access: ${ACCESS_EXP:1800000}
+    refresh: ${REFRESH_EXP:17280000000}
