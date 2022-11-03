@@ -1,11 +1,11 @@
 package com.backend.kosa_midas_7_backend.service.user;
 
-import com.backend.kosa_midas_7_backend.entity.User;
 import com.backend.kosa_midas_7_backend.entity.dto.user.CheckEmailAuthCodeDto;
 import com.backend.kosa_midas_7_backend.entity.dto.user.EmailAuthDto;
 import com.backend.kosa_midas_7_backend.entity.dto.user.FindPasswordCheck;
 import com.backend.kosa_midas_7_backend.entity.dto.user.FindPasswordDto;
-import com.backend.kosa_midas_7_backend.repository.UserRepository;
+import com.backend.kosa_midas_7_backend.entity.user.User;
+import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
 import com.backend.kosa_midas_7_backend.service.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,9 +31,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<HttpStatus> findPassword(FindPasswordDto findPasswordDto) throws Exception {
         String accountId = findPasswordDto.getAccountId();
-        Optional<User> user = userRepository.findByAccountId(accountId);
-        String username = user.get().getUserName();
-        String email = user.get().getEmail();
+
+        User user = userRepository.findByAccountId(accountId).orElseThrow(RuntimeException::new);
+        String username = user.getUserName();
+        String email = user.getEmail();
 
         EmailAuthDto emailAuthDto = new EmailAuthDto(username, email);
 

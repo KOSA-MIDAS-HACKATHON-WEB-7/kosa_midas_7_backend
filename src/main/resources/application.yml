@@ -4,18 +4,19 @@ spring:
     url: jdbc:mysql://localhost:3307/midas-hackathon
     username: root
     password: 1234
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-
-
 jwt:
-  secretKey: ijhguugbgyibubugbuguygvuygvygvuyvuyvuyvuyfvcydtxtfvyfcyghctdrxcduygvyc7rt
+  secretKey: ${SECRET_KEY:akshflkdsjfasdlfhkdashfhasfksahadfasdfadsfqwdcazfqwedsafas}
   exp:
     access: ${ACCESS_EXP:1800000}
     refresh: ${REFRESH_EXP:17280000000}
+server:
+  port: 8080

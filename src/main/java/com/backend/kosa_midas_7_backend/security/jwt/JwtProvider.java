@@ -1,5 +1,7 @@
 package com.backend.kosa_midas_7_backend.security.jwt;
 
+import com.backend.kosa_midas_7_backend.entity.refresh.Refresh;
+import com.backend.kosa_midas_7_backend.entity.refresh.repository.RefreshRepository;
 import com.backend.kosa_midas_7_backend.security.auth.Details;
 import com.backend.kosa_midas_7_backend.security.auth.DetailsService;
 import io.jsonwebtoken.Claims;
@@ -28,7 +30,7 @@ public class JwtProvider {
     @Value("${jwt.exp.refresh}")
     private Long refreshExp;
 
-//    private final RefreshRepository refreshRepository;
+    private final RefreshRepository refreshRepository;
 
     private final DetailsService detailsService;
 
@@ -49,7 +51,7 @@ public class JwtProvider {
             Jwts.parserBuilder().setSigningKey(encodingKey()).build().parseClaimsJws(accessToken);
             return true;
         } catch (Exception e) {
-            throw new RuntimeException("aasss");
+            throw new RuntimeException("aasss"); //////////////////////
         }
     }
 
@@ -57,7 +59,7 @@ public class JwtProvider {
         try {
             return Jwts.parserBuilder().setSigningKey(encodingKey()).build().parseClaimsJws(accessToken).getBody();
         } catch (Exception e) {
-            throw new RuntimeException("aaa");
+            throw new RuntimeException("aaa"); //////////////////////
         }
     }
 
@@ -67,10 +69,10 @@ public class JwtProvider {
 
     public String generateRefreshToken(String userId) {
         String refreshToken = generateToken(userId, "refresh-token", refreshExp);
-//        refreshRepository.save(RefreshToken.builder()
-//                .userId(userId)
-//                .refreshTokenValue(refreshToken)
-//                .build());
+        refreshRepository.save(Refresh.builder()
+                .userId(userId)
+                .token(refreshToken)
+                .build());
         return refreshToken;
     }
 

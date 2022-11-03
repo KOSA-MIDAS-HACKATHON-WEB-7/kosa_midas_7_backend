@@ -1,12 +1,12 @@
 package com.backend.kosa_midas_7_backend.service.officehoure;
 
-import com.backend.kosa_midas_7_backend.entity.OfficeHour;
-import com.backend.kosa_midas_7_backend.entity.User;
-import com.backend.kosa_midas_7_backend.entity.WorkHome;
 import com.backend.kosa_midas_7_backend.entity.dto.officehour.WorkDto;
-import com.backend.kosa_midas_7_backend.repository.OfficeHourRepository;
-import com.backend.kosa_midas_7_backend.repository.UserRepository;
-import com.backend.kosa_midas_7_backend.repository.WorkHomeRepository;
+import com.backend.kosa_midas_7_backend.entity.officehour.OfficeHour;
+import com.backend.kosa_midas_7_backend.entity.officehour.repository.OfficeHourRepository;
+import com.backend.kosa_midas_7_backend.entity.user.User;
+import com.backend.kosa_midas_7_backend.entity.workhome.WorkHome;
+import com.backend.kosa_midas_7_backend.entity.workhome.repository.WorkHomeRepository;
+import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

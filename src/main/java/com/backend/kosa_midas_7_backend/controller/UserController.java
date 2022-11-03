@@ -1,4 +1,4 @@
-package com.backend.kosa_midas_7_backend.Controller;
+package com.backend.kosa_midas_7_backend.controller;
 
 import com.backend.kosa_midas_7_backend.entity.dto.user.*;
 import com.backend.kosa_midas_7_backend.service.mail.MailService;
