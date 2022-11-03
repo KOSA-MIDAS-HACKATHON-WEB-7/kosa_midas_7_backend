@@ -1,6 +1,6 @@
 package com.backend.kosa_midas_7_backend.service.mail;
 
-import com.backend.kosa_midas_7_backend.entity.EmailAuthCode;
+import com.backend.kosa_midas_7_backend.entity.emailauthcode.EmailAuthCode;
 import com.backend.kosa_midas_7_backend.entity.dto.EmailAuthDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

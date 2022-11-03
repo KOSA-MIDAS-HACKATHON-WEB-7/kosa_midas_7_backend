@@ -1,4 +1,4 @@
-package com.backend.kosa_midas_7_backend.entity;
+package com.backend.kosa_midas_7_backend.entity.emailauthcode;
 
 import lombok.*;
 

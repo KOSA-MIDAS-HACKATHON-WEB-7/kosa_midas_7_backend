@@ -1,6 +1,6 @@
-package com.backend.kosa_midas_7_backend.repository;
+package com.backend.kosa_midas_7_backend.entity.emailauthcode.repository;
 
-import com.backend.kosa_midas_7_backend.entity.EmailAuthCode;
+import com.backend.kosa_midas_7_backend.entity.emailauthcode.EmailAuthCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
