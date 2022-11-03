@@ -11,6 +11,9 @@ import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
 import com.backend.kosa_midas_7_backend.entity.workhome.WorkHome;
 import com.backend.kosa_midas_7_backend.entity.workhome.repository.WorkHomeRepository;
+import com.backend.kosa_midas_7_backend.exception.AcceptUnauthorized;
+import com.backend.kosa_midas_7_backend.exception.UserNotFound;
+import com.backend.kosa_midas_7_backend.exception.WorkHomeNotFound;
 import com.backend.kosa_midas_7_backend.security.auth.Details;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +75,7 @@ public class AdminService {
     public void acceptWorkHome(Long id) {
         validate();
         WorkHome workHome = workHomeRepository.findById(id).orElseThrow(() -> {
-           throw new RuntimeException("WorkHome Column does not exist");
+           throw WorkHomeNotFound.EXCEPTION;
         });
         workHomeRepository.save(workHome.updateRecruitment(true));
     }
@@ -80,7 +83,7 @@ public class AdminService {
     public void refuseWorkHome(Long id, WorkHomeResponse response) {
         validate();
         WorkHome workHome = workHomeRepository.findById(id).orElseThrow(() -> {
-            throw new RuntimeException("WorkHome Column does not exist");
+            throw WorkHomeNotFound.EXCEPTION;
         });
         workHome.updateRecruitment(false);
         workHome.updateResponse(response.getWorkHomeResponse());
@@ -88,10 +91,12 @@ public class AdminService {
     }
 
     private User validateAdmin(String accountId) {
-        User user = userRepository.findByAccountId(accountId).orElseThrow(RuntimeException::new);
+        User user = userRepository.findByAccountId(accountId).orElseThrow(() -> {
+            throw UserNotFound.EXCEPTION;
+        });
         Details a = (Details) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!(a.getUser().getRole() == Role.ADMIN)) {
-            throw new RuntimeException("not have access");
+            throw AcceptUnauthorized.EXCEPTION;
         }
         return user;
     }
@@ -99,7 +104,7 @@ public class AdminService {
     private void validate() {
         Details a =(Details) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(!(a.getUser().getRole() == Role.ADMIN)) {
-            throw new RuntimeException("not have access");
+            throw AcceptUnauthorized.EXCEPTION;
         }
     }
 }

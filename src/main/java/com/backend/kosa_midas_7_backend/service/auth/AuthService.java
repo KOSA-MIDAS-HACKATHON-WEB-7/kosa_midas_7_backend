@@ -8,6 +8,10 @@ import com.backend.kosa_midas_7_backend.entity.refresh.repository.RefreshReposit
 import com.backend.kosa_midas_7_backend.entity.user.Role;
 import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.entity.user.repository.UserRepository;
+import com.backend.kosa_midas_7_backend.exception.AcceptUnauthorized;
+import com.backend.kosa_midas_7_backend.exception.IdConflict;
+import com.backend.kosa_midas_7_backend.exception.PasswordConflict;
+import com.backend.kosa_midas_7_backend.exception.UserNotFound;
 import com.backend.kosa_midas_7_backend.security.auth.Details;
 import com.backend.kosa_midas_7_backend.security.jwt.JwtProvider;
 import io.jsonwebtoken.Claims;
@@ -30,14 +34,14 @@ public class AuthService {
 
     public TokenResponse login(LoginDto loginDto) {
         User user = userRepository.findByAccountId(loginDto.getAccountId()).orElseThrow(()-> {
-            throw new RuntimeException("user does not exist");
+            throw UserNotFound.EXCEPTION;
         });
 
         if(!passwordEncoder.matches(loginDto.getPassword(), user.getPassword()))
-            throw new RuntimeException("password does not match");
+            throw PasswordConflict.EXCEPTION;
 
 
-        if(!user.getAccept()) throw new RuntimeException("this account does not accept");
+        if(!user.getAccept()) throw AcceptUnauthorized.EXCEPTION;
 
 
         return TokenResponse.builder()
@@ -48,7 +52,7 @@ public class AuthService {
 
     public void signUp(UserDto userDto) {
         if(userRepository.findByAccountId(userDto.getAccountId()).isPresent()) {
-            throw new RuntimeException("id already exist");
+            throw IdConflict.EXCEPTION;
         }
         Role tmp = null;
         if(userDto.getRole().equals("USER")) {
@@ -73,7 +77,7 @@ public class AuthService {
         Details tmp =  (Details) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String accountId = tmp.getUser().getAccountId();
         refreshRepository.delete(refreshRepository.findById(accountId).orElseThrow(() -> {
-                    throw new RuntimeException("user does not exist");
+                    throw UserNotFound.EXCEPTION;
                 }
         ));
     }
@@ -82,7 +86,7 @@ public class AuthService {
         Claims claims = jwtProvider.parseClaims(accessToken);
         User user = userRepository.findByAccountId(claims.getSubject())
                 .orElseThrow(() -> {
-                    throw new RuntimeException("user does not exist");
+                    throw UserNotFound.EXCEPTION;
                 });
         return TokenResponse.builder()
                 .accessToken(jwtProvider.generateAccessToken(user.getAccountId()))
@@ -92,27 +96,27 @@ public class AuthService {
 
     public void updatePassword(LoginDto loginDto) {
         User user = userRepository.findByAccountId(loginDto.getAccountId()).orElseThrow(()-> {
-            throw new RuntimeException("user does not exist");
+            throw UserNotFound.EXCEPTION;
         });
         userRepository.save(user.changePassword(passwordEncoder.encode(loginDto.getPassword())));
     }
 
     public void updatePassword(ChangePasswordDto changePasswordDto) {
         User user = userRepository.findByAccountId((changePasswordDto.getAccountId())).orElseThrow(() -> {
-            throw new RuntimeException("user does not exist");
+            throw UserNotFound.EXCEPTION;
         });
         if(!passwordEncoder.matches(changePasswordDto.getBeforePassword(), user.getPassword())) {
-            throw new RuntimeException("Password is incorrect");
+            throw PasswordConflict.EXCEPTION;
         }
         if(!changePasswordDto.getAfterPassword().equals(changePasswordDto.getAfterPasswordCheck())) {
-            throw new RuntimeException("check your \"check password\"");
+            throw PasswordConflict.EXCEPTION;
         }
         userRepository.save(user.changePassword(passwordEncoder.encode(changePasswordDto.getAfterPassword())));
     }
 
     public void accept(String accountId) {
         User user = userRepository.findByAccountId(accountId).orElseThrow(() ->{
-            throw new RuntimeException("not found");
+            throw UserNotFound.EXCEPTION;
         });
         user.changeAccept(true);
     }

@@ -2,6 +2,7 @@ package com.backend.kosa_midas_7_backend.security.jwt;
 
 import com.backend.kosa_midas_7_backend.entity.refresh.Refresh;
 import com.backend.kosa_midas_7_backend.entity.refresh.repository.RefreshRepository;
+import com.backend.kosa_midas_7_backend.exception.error.TokenUnauthorized;
 import com.backend.kosa_midas_7_backend.security.auth.Details;
 import com.backend.kosa_midas_7_backend.security.auth.DetailsService;
 import io.jsonwebtoken.Claims;
@@ -51,7 +52,7 @@ public class JwtProvider {
             Jwts.parserBuilder().setSigningKey(encodingKey()).build().parseClaimsJws(accessToken);
             return true;
         } catch (Exception e) {
-            throw new RuntimeException("token it does not validate");
+            throw TokenUnauthorized.EXCEPTION;
         }
     }
 
@@ -59,7 +60,7 @@ public class JwtProvider {
         try {
             return Jwts.parserBuilder().setSigningKey(encodingKey()).build().parseClaimsJws(accessToken).getBody();
         } catch (Exception e) {
-            throw new RuntimeException("Claims Parsing exception");
+            throw TokenUnauthorized.EXCEPTION;
         }
     }
 
