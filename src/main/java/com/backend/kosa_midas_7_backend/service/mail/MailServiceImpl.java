@@ -1,7 +1,7 @@
 package com.backend.kosa_midas_7_backend.service.mail;
 
 import com.backend.kosa_midas_7_backend.entity.EmailAuthCode;
-import com.backend.kosa_midas_7_backend.entity.dto.EmailAuthDto;
+import com.backend.kosa_midas_7_backend.entity.dto.user.EmailAuthDto;
 import com.backend.kosa_midas_7_backend.repository.EmailAuthCodeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -99,19 +99,19 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public ResponseEntity<Boolean> checkAuthCode(String email, String code) {
+    public Boolean checkAuthCode(String email, String code) {
         try {
             EmailAuthCode authToken = authTokenRepository.findByEmailAndExpirationDateAfterAndExpired(email, LocalDateTime.now(), false);
             if (authToken.getCode().equals(code)) {
                 authToken.setTokenToUsed();
                 authTokenRepository.save(authToken);
-                return new ResponseEntity<>(true, HttpStatus.OK);
+                return true;
             } else {
-                return new ResponseEntity<>(false, HttpStatus.CONFLICT);
+                return false;
             }
         } catch (Exception exception) {
             log.info("error: {}", exception.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return false;
         }
     }
 

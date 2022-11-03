@@ -1,7 +1,7 @@
 package com.backend.kosa_midas_7_backend.service.mail;
 
 import com.backend.kosa_midas_7_backend.entity.EmailAuthCode;
-import com.backend.kosa_midas_7_backend.entity.dto.EmailAuthDto;
+import com.backend.kosa_midas_7_backend.entity.dto.user.EmailAuthDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public interface MailService {
     // DELETE
 
     // ELSE
-    ResponseEntity<Boolean> checkAuthCode(String email, String code);
+    Boolean checkAuthCode(String email, String code);
 
     ResponseEntity<HttpStatus> sendAuthMail(EmailAuthDto emailAuthDto) throws Exception;
 

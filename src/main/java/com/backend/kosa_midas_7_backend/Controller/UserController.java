@@ -1,8 +1,6 @@
 package com.backend.kosa_midas_7_backend.Controller;
 
-import com.backend.kosa_midas_7_backend.entity.dto.CheckEmailAuthCodeDto;
-import com.backend.kosa_midas_7_backend.entity.dto.EmailAuthDto;
-import com.backend.kosa_midas_7_backend.entity.dto.FindPasswordDto;
+import com.backend.kosa_midas_7_backend.entity.dto.user.*;
 import com.backend.kosa_midas_7_backend.service.mail.MailService;
 import com.backend.kosa_midas_7_backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +33,14 @@ public class UserController {
         return userService.findPassword(findPasswordDto);
     }
 
-    @PostMapping("/check-auth-code")
-    public ResponseEntity<Boolean> checkEmailAuthCode(@RequestBody CheckEmailAuthCodeDto checkEmailAuthCodeDto) {
-        return userService.checkEmailAuthCode(checkEmailAuthCodeDto);
+    @PostMapping("/find-id/check-auth-code") // 아이디 인증코드 확인 -> 맞으면 아이디 보여줌
+    public ResponseEntity<String> findIdCheck(@RequestBody CheckEmailAuthCodeDto checkEmailAuthCodeDto) {
+        return userService.findIdCheckAuthCode(checkEmailAuthCodeDto);
+    }
+
+    @PostMapping("/find-password/check-auth-code") // 비밀번호 인증코드 확인 -> 맞으면 true
+    public ResponseEntity<Boolean> findPasswordCehck(@RequestBody FindPasswordCheck findPasswordCheck) {
+        return userService.findPasswordCheckAuthCode(findPasswordCheck);
     }
 
     // PUT

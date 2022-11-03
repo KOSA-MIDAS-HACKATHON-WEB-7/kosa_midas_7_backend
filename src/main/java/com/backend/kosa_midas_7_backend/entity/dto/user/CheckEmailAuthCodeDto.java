@@ -1,4 +1,4 @@
-package com.backend.kosa_midas_7_backend.entity.dto;
+package com.backend.kosa_midas_7_backend.entity.dto.user;
 
 import lombok.Data;
 
