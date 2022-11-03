@@ -44,7 +44,7 @@ public class AdminService {
 
     public void updateAccountId(UpdateAccountId updateAccountId) {
         User user = validateAdmin(updateAccountId.getAccountId());
-        userRepository.save(user);
+        userRepository.save(user.changeAccountId(updateAccountId.getNewAccountId()));
     }
 
     public void updateInfo(UpdateInfoAdmin updateInfoAdmin) {
