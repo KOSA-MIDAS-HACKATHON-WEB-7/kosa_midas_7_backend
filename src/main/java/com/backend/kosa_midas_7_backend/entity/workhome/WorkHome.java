@@ -33,6 +33,14 @@ public class WorkHome {
 
     private String response;
 
+    public WorkHome updateRecruitment(Boolean b) {
+        this.recruitment = b;
+        return this;
+    }
+
+    public void updateResponse(String response) {
+        this.response = response;
+
     public void createWorkHome(User user, WorkHomeApplicationDto workHomeApplicationDto) {
         if (workHomeApplicationDto.getId() != null) {
             this.id = workHomeApplicationDto.getId();
@@ -43,6 +51,7 @@ public class WorkHome {
         this.recruitment = false;
         this.reason = workHomeApplicationDto.getReason();
         this.response = null;
+
     }
 
 }

@@ -5,11 +5,11 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-public class UpdatePosition {
+public class UpdateAccountId {
 
     @NotBlank
     private String accountId;
 
     @NotBlank
-    private String position;
+    private String newAccountId;
 }
