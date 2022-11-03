@@ -1,5 +1,6 @@
 package com.backend.kosa_midas_7_backend.controller;
 
+import com.backend.kosa_midas_7_backend.dto2.request.UpdateInfoAdmin;
 import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdateDepartment;
 import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePassword;
 import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePosition;
@@ -35,5 +36,11 @@ public class AdminController {
     @ResponseStatus(HttpStatus.CREATED)
     public void updatePosition(@RequestBody UpdatePosition updatePosition) {
         service.updatePosition(updatePosition);
+    }
+
+    @PutMapping("/user-info")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void updateInfo(@RequestBody UpdateInfoAdmin updateInfoAdmin) {
+        service.updateInfo(updateInfoAdmin);
     }
 }
