@@ -6,6 +6,7 @@ import com.backend.kosa_midas_7_backend.dto.request.admin.UpdateAccountId;
 import com.backend.kosa_midas_7_backend.dto.request.admin.UpdateDepartment;
 import com.backend.kosa_midas_7_backend.dto.request.admin.UpdatePassword;
 import com.backend.kosa_midas_7_backend.dto.request.admin.UpdatePosition;
+import com.backend.kosa_midas_7_backend.entity.user.User;
 import com.backend.kosa_midas_7_backend.entity.workhome.WorkHome;
 import com.backend.kosa_midas_7_backend.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,16 @@ public class AdminController {
     @GetMapping("/get-work-home")
     public ResponseEntity<List<WorkHome>> getWorkHomeList() {
         return service.getWorkHomeList();
+    }
+
+    @GetMapping("/get-signup-list")
+    public ResponseEntity<List<User>> getSignUpList() {
+        return service.getSignUpList();
+    }
+
+    @DeleteMapping("/delete-signup-application/{id}")
+    public ResponseEntity<HttpStatus> deleteSignUpApplication(@PathVariable Long id) {
+        return service.deleteSignUpApplication(id);
     }
 
     @PutMapping("/password")

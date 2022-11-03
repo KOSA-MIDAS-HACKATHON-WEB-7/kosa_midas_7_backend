@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -120,6 +121,27 @@ public class AdminService {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(workHomeList, HttpStatus.OK);
+        }
+    }
+
+    public ResponseEntity<List<User>> getSignUpList() {
+        List<User> userList = userRepository.findAllByAccept(false);
+
+        if (userList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(userList, HttpStatus.OK);
+        }
+    }
+
+    public ResponseEntity<HttpStatus> deleteSignUpApplication(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isPresent()) {
+            userRepository.delete(user.get());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
