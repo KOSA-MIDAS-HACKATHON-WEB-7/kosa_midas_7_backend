@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService {
             throw UserNotFound.EXCEPTION;
         });
         return UserDto.builder()
+                .id(user.getId())
                 .userName(user.getUserName())
                 .role(user.getRole().toString())
                 .accountId(user.getAccountId())

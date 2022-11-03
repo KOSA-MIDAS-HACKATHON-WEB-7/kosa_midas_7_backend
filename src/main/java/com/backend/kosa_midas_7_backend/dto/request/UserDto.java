@@ -13,6 +13,9 @@ import javax.validation.constraints.Size;
 public class UserDto {
 
     @NotBlank
+    private Long id;
+
+    @NotBlank
     private String email;
 
     @NotBlank
