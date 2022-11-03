@@ -33,6 +33,8 @@ public class User {
 
     private String coreTimeEnd;
 
+    private String workWhere;
+
     private int date;
 
     @Column(columnDefinition = "INTEGER defaut 0")

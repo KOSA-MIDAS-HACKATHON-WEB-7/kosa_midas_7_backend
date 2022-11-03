@@ -139,9 +139,11 @@ public class OfficeHourServiceImpl implements OfficeHourService {
 
                 if (workHome.isPresent()) {
                     WorkHome workHomeEntity = workHome.get();
+                    userEntity.setWorkWhere("재택근무");
                     officeHour.setOfficeHoursType("재택근무");
                     officeHour.setWorkHome(workHomeEntity);
                 } else {
+                    userEntity.setWorkWhere("회사");
                     officeHour.setOfficeHoursType("회사");
                 }
 
@@ -174,6 +176,7 @@ public class OfficeHourServiceImpl implements OfficeHourService {
                     officeHourRepository.save(officeHourEntity);
 
                     userEntity.setDate(userEntity.getDate() + 1);
+                    userEntity.setWorkWhere(null);
                     userRepository.save(userEntity);
 
                     return new ResponseEntity<>(HttpStatus.OK);
