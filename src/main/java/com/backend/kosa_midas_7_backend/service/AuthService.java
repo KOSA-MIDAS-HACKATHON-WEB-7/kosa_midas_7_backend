@@ -3,7 +3,6 @@ package com.backend.kosa_midas_7_backend.service;
 import com.backend.kosa_midas_7_backend.dto2.request.ChangePasswordDto;
 import com.backend.kosa_midas_7_backend.dto2.request.LoginDto;
 import com.backend.kosa_midas_7_backend.dto2.request.UserDto;
-import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePassword;
 import com.backend.kosa_midas_7_backend.dto2.response.TokenResponse;
 import com.backend.kosa_midas_7_backend.entity.refresh.repository.RefreshRepository;
 import com.backend.kosa_midas_7_backend.entity.user.Role;
@@ -34,9 +33,12 @@ public class AuthService {
             throw new RuntimeException("user does not exist");
         });
 
-        if(!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+        if(!passwordEncoder.matches(loginDto.getPassword(), user.getPassword()))
             throw new RuntimeException("password does not match");
-        }
+
+
+        if(!user.getAccept()) throw new RuntimeException("this account does not accept");
+
 
         return TokenResponse.builder()
                 .accessToken(jwtProvider.generateAccessToken(loginDto.getAccountId()))
@@ -106,5 +108,12 @@ public class AuthService {
             throw new RuntimeException("check your \"check password\"");
         }
         userRepository.save(user.changePassword(passwordEncoder.encode(changePasswordDto.getAfterPassword())));
+    }
+
+    public void accept(String accountId) {
+        User user = userRepository.findByAccountId(accountId).orElseThrow(() ->{
+            throw new RuntimeException("not found");
+        });
+        user.changeAccept(true);
     }
 }
