@@ -40,8 +40,8 @@ public class AuthController {
     }
 
     @PutMapping("/reissue")
-    public TokenResponse reissue(@RequestParam String accessToken) {
-        return authService.reissue(accessToken);
+    public TokenResponse reissue(@RequestParam String refreshToken) {
+        return authService.reissue(refreshToken);
     }
 
     @PutMapping("/update-password")

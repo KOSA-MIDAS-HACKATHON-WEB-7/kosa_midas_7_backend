@@ -1,5 +1,6 @@
 package com.backend.kosa_midas_7_backend.security.config;
 
+import com.backend.kosa_midas_7_backend.entity.user.Role;
 import com.backend.kosa_midas_7_backend.security.jwt.JwtFilter;
 import com.backend.kosa_midas_7_backend.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/sign-up").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .anyRequest().authenticated()
