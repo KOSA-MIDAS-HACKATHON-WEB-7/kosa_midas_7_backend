@@ -69,8 +69,8 @@ public class AuthService {
                 .position(userDto.getPosition())
                 .role(tmp)
                 .date(0)
-                .coreTimeStart("08시")
-                .coreTimeEnd("15시")
+                .coreTimeStart("07:00:00")
+                .coreTimeEnd("15:00:00")
                 .build());
     }
     public void logout() {
