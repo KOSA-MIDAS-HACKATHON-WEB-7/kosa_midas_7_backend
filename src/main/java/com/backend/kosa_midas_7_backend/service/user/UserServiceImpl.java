@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -22,6 +23,27 @@ public class UserServiceImpl implements UserService {
     private final MailService mailService;
 
     // GET
+    @Override
+    public ResponseEntity<User> findUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<User>> findAllUser() {
+        List<User> userList = userRepository.findAll();
+
+        if (userList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(userList, HttpStatus.OK);
+        }
+    }
 
     // POST
     @Override

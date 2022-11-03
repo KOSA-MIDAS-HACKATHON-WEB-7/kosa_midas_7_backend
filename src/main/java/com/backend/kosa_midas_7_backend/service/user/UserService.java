@@ -9,10 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UserService {
 
     // GET
+    ResponseEntity<User> findUserById(Long id);
+
+    ResponseEntity<List<User>> findAllUser();
 
     // POST
     ResponseEntity<HttpStatus> findPassword(FindPasswordDto findPasswordDto) throws Exception;
