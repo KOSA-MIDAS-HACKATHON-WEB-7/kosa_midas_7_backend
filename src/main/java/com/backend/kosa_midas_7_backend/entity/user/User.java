@@ -55,7 +55,9 @@ public class User {
         this.position = position;
         this.date = date;
         this.coreTimeStart = coreTimeStart;
+        this.accept = false;
         this.coreTimeEnd = coreTimeEnd;
+        this.warning = 0;
         this.role = role;
     }
 

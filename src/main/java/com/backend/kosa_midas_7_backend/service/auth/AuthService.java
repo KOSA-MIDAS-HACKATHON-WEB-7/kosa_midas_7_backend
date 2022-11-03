@@ -114,6 +114,6 @@ public class AuthService {
         User user = userRepository.findByAccountId(accountId).orElseThrow(() ->{
             throw new RuntimeException("not found");
         });
-        user.changeAccept(true);
+        userRepository.save(user.changeAccept(true));
     }
 }
