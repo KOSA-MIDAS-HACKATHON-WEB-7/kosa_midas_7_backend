@@ -17,9 +17,14 @@ import com.backend.kosa_midas_7_backend.exception.WorkHomeNotFound;
 import com.backend.kosa_midas_7_backend.security.auth.Details;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 
 @Slf4j
@@ -105,6 +110,16 @@ public class AdminService {
         Details a =(Details) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(!(a.getUser().getRole() == Role.ADMIN)) {
             throw AcceptUnauthorized.EXCEPTION;
+        }
+    }
+
+    public ResponseEntity<List<WorkHome>> getWorkHomeList() {
+        List<WorkHome> workHomeList = workHomeRepository.findAllByStartDateAfterOrStartDate(LocalDate.now(), LocalDate.now());
+
+        if (workHomeList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(workHomeList, HttpStatus.OK);
         }
     }
 }

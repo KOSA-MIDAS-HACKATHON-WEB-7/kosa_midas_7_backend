@@ -6,16 +6,15 @@ import com.backend.kosa_midas_7_backend.dto.request.admin.UpdateAccountId;
 import com.backend.kosa_midas_7_backend.dto.request.admin.UpdateDepartment;
 import com.backend.kosa_midas_7_backend.dto.request.admin.UpdatePassword;
 import com.backend.kosa_midas_7_backend.dto.request.admin.UpdatePosition;
+import com.backend.kosa_midas_7_backend.entity.workhome.WorkHome;
 import com.backend.kosa_midas_7_backend.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RequestMapping("/admin")
@@ -24,6 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
     private final AdminService service;
+
+    @GetMapping("/get-work-home")
+    public ResponseEntity<List<WorkHome>> getWorkHomeList() {
+        return service.getWorkHomeList();
+    }
 
     @PutMapping("/password")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -69,4 +73,5 @@ public class AdminController {
     public void acceptSignUp(@PathVariable String accountId) {
         service.acceptSignUp(accountId);
     }
+
 }
