@@ -3,6 +3,7 @@ package com.backend.kosa_midas_7_backend.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -11,25 +12,23 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class WorkHome {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
-
-    private String accountId;
-
-    private String userName;
-
-    private String password;
-
-    private String department;
-
-    private String position;
-
     @OneToOne
-    private Role role;
+    private User user;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
+
+    private Boolean recruitment;
+
+    private String reason;
+
+    private String response;
 
 }
