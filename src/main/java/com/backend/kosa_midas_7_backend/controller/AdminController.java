@@ -1,23 +1,15 @@
 package com.backend.kosa_midas_7_backend.controller;
 
-import com.backend.kosa_midas_7_backend.dto2.request.CheckOvertimeDto;
-import com.backend.kosa_midas_7_backend.dto2.request.UpdateInfoAdmin;
-import com.backend.kosa_midas_7_backend.dto2.request.WorkHomeResponse;
-import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdateAccountId;
-import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdateDepartment;
-import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePassword;
-import com.backend.kosa_midas_7_backend.dto2.request.admin.UpdatePosition;
-import com.backend.kosa_midas_7_backend.entity.user.User;
-import com.backend.kosa_midas_7_backend.service.AdminService;
+import com.backend.kosa_midas_7_backend.dto.request.UpdateInfoAdmin;
+import com.backend.kosa_midas_7_backend.dto.request.WorkHomeResponse;
+import com.backend.kosa_midas_7_backend.dto.request.admin.UpdateAccountId;
+import com.backend.kosa_midas_7_backend.dto.request.admin.UpdateDepartment;
+import com.backend.kosa_midas_7_backend.dto.request.admin.UpdatePassword;
+import com.backend.kosa_midas_7_backend.dto.request.admin.UpdatePosition;
+import com.backend.kosa_midas_7_backend.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

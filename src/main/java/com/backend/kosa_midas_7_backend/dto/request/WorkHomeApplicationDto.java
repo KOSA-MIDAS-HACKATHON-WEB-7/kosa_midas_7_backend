@@ -1,4 +1,4 @@
-package com.backend.kosa_midas_7_backend.entity.dto.user;
+package com.backend.kosa_midas_7_backend.dto.request;
 
 import lombok.Data;
 import lombok.ToString;

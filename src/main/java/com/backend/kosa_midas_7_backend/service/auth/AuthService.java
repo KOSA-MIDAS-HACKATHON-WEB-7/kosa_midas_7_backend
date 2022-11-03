@@ -1,9 +1,9 @@
-package com.backend.kosa_midas_7_backend.service;
+package com.backend.kosa_midas_7_backend.service.auth;
 
-import com.backend.kosa_midas_7_backend.dto2.request.ChangePasswordDto;
-import com.backend.kosa_midas_7_backend.dto2.request.LoginDto;
-import com.backend.kosa_midas_7_backend.dto2.request.UserDto;
-import com.backend.kosa_midas_7_backend.dto2.response.TokenResponse;
+import com.backend.kosa_midas_7_backend.dto.request.ChangePasswordDto;
+import com.backend.kosa_midas_7_backend.dto.request.LoginDto;
+import com.backend.kosa_midas_7_backend.dto.request.UserDto;
+import com.backend.kosa_midas_7_backend.dto.response.TokenResponse;
 import com.backend.kosa_midas_7_backend.entity.refresh.repository.RefreshRepository;
 import com.backend.kosa_midas_7_backend.entity.user.Role;
 import com.backend.kosa_midas_7_backend.entity.user.User;

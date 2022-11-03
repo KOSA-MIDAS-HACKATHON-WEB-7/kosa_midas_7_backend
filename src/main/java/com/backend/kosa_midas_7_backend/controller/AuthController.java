@@ -1,10 +1,10 @@
 package com.backend.kosa_midas_7_backend.controller;
 
-import com.backend.kosa_midas_7_backend.dto2.request.ChangePasswordDto;
-import com.backend.kosa_midas_7_backend.dto2.request.LoginDto;
-import com.backend.kosa_midas_7_backend.dto2.request.UserDto;
-import com.backend.kosa_midas_7_backend.dto2.response.TokenResponse;
-import com.backend.kosa_midas_7_backend.service.AuthService;
+import com.backend.kosa_midas_7_backend.dto.request.ChangePasswordDto;
+import com.backend.kosa_midas_7_backend.dto.request.LoginDto;
+import com.backend.kosa_midas_7_backend.dto.request.UserDto;
+import com.backend.kosa_midas_7_backend.dto.response.TokenResponse;
+import com.backend.kosa_midas_7_backend.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -1,4 +1,4 @@
-package com.backend.kosa_midas_7_backend.dto2.request.admin;
+package com.backend.kosa_midas_7_backend.dto.request.admin;
 
 import lombok.Getter;
 
