@@ -27,19 +27,31 @@ public class User {
 
     private String position;
 
+    private String coreTimeStart;
+
+    private String coreTimeEnd;
+
+    private int date;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Builder
-    public User(String email, String accountId, String userName, String password, String department, String position, Role role) {
+    public User(String email, String accountId, String userName, String password, String department, String position,
+                Role role, int date, String coreTimeStart, String coreTimeEnd) {
         this.email = email;
         this.accountId = accountId;
         this.userName = userName;
         this.password = password;
         this.department = department;
         this.position = position;
+        this.date = date;
+        this.coreTimeStart = coreTimeStart;
+        this.coreTimeEnd = coreTimeEnd;
         this.role = role;
     }
+
+
 
     public User changePassword(String password) {
         this.password = password;
