@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class OfficeHourController {
     }
 
     @GetMapping("/check-work-hour-end")
-    public ResponseEntity<String> checkMyWork(@RequestBody CheckDto checkDto) {
+    public ResponseEntity<Map<String, String>> checkMyWork(@RequestBody CheckDto checkDto) {
         return officeHourService.checkWorkHour(checkDto);
     }
 

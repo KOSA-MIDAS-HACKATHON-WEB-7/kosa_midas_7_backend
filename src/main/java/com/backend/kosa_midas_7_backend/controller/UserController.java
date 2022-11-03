@@ -2,6 +2,7 @@ package com.backend.kosa_midas_7_backend.controller;
 
 import com.backend.kosa_midas_7_backend.entity.dto.user.*;
 import com.backend.kosa_midas_7_backend.entity.user.User;
+import com.backend.kosa_midas_7_backend.entity.workhome.WorkHome;
 import com.backend.kosa_midas_7_backend.service.mail.MailService;
 import com.backend.kosa_midas_7_backend.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,11 @@ public class UserController {
     @PostMapping("/find-password/check-auth-code") // 비밀번호 인증코드 확인 -> 맞으면 true
     public ResponseEntity<Boolean> findPasswordCehck(@RequestBody FindPasswordCheck findPasswordCheck) {
         return userService.findPasswordCheckAuthCode(findPasswordCheck);
+    }
+
+    @PostMapping("/work-home/application")
+    public ResponseEntity<WorkHome> workHomeApplication(@RequestBody WorkHomeApplicationDto workHomeApplicationDto) {
+        return userService.workHomeApplication(workHomeApplicationDto);
     }
 
     // PUT
