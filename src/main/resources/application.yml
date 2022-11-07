@@ -1,9 +1,9 @@
 # database
 spring:
   datasource:
-    url: jdbc:mysql://158.247.211.247/midashackathon
-    username: jinhyo
-    password:
+    url: {url}
+    username: {username}
+    password: {password}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
